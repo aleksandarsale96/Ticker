@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
+    <title>TSF Brain</title>
+</head>
+
+<body>
+    <div class="marquee">
+        <div class="marquee__item">
+            TSF Latest Block
+            <span class="marquee__seperator" id="latest_block"></span>
+            TSF Circulating Suplly
+            <span class="marquee__seperator" id="supply"></span>
+            TSF Network Hashrate
+            <span class="marquee__seperator" id="hashrate"></span>
+            TSF Price
+            <span class="marquee__seperator" id="current_price"></span>
+            TSF Marcet Cap
+            <span class="marquee__seperator" id="market_cap"></span>
+        </div>
+        <div class="marquee__item">
+            TSF Latest Block
+            <span class="marquee__seperator" id="latest_block1"></span>
+            TSF Circulating Suplly
+            <span class="marquee__seperator" id="supply1"></span>
+            TSF Network Hashrate
+            <span class="marquee__seperator" id="hashrate1"></span>
+            TSF Price
+            <span class="marquee__seperator" id="current_price1"></span>
+            TSF Marcet Cap
+            <span class="marquee__seperator" id="market_cap1"></span>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" 
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            jQuery.ajax({
+                type: 'GET',
+                url: 'https://explorer.tsf-platform.com/api/v1/network/stats',
+                dataType: 'json',
+                success: function (response) {
+                    var tsfblock = response[0].number;
+                    console.log(tsfblock);
+                    var tsfminer = response[0].miner;
+                    var tsfdiff = response[0].difficultyFormated;
+                    var tsfhashrate = response[0].hashrate;
+                    var tsfsupply = response[0].circulatingSupply;
+                    console.log(tsfsupply);
+                    jQuery("#latest_block").html(tsfblock);
+                    // jQuery("#miner").html(tsfminer);
+                    // jQuery("#block_diff").html(tsfdiff + " T");
+                    jQuery("#hashrate").html(tsfhashrate + " GH");
+                    jQuery("#supply").html(tsfsupply + " TSF");
+                },
+                error: function (jqXHR, textStatus) {
+                    console.log(textStatus);
+                }
+            });
+            setInterval(function () {
+                jQuery.ajax({
+                    type: 'GET',
+                    url: 'https://explorer.tsf-platform.com/api/v1/network/stats',
+                    dataType: 'json',
+                    success: function (response) {
+                        var tsfblock = response[0].number;
+                        console.log(tsfblock);
+                        var tsfminer = response[0].miner;
+                        var tsfdiff = response[0].difficultyFormated;
+                        var tsfhashrate = response[0].hashrate;
+                        var tsfsupply = response[0].circulatingSupply;
+                        jQuery("#latest_block1").html(tsfblock);
+                        // jQuery("#miner").html(tsfminer);
+                        // jQuery("#block_diff").html(tsfdiff + " T");
+                        jQuery("#hashrate1").html(tsfhashrate + " GH");
+                        jQuery("#supply1").html(tsfsupply + " TSF");
+                    },
+                    error: function (jqXHR, textStatus) {
+                        console.log(textStatus);
+                    }
+                });
+            }, 5000);
+            setInterval(function () {
+                jQuery.ajax({
+                    type: 'GET',
+                    url: 'https://explorer.tsf-platform.com/api/v1/network/stats',
+                    dataType: 'json',
+                    success: function (response) {
+                        var tsfblock = response[0].number;
+                        console.log(tsfblock);
+                        var tsfminer = response[0].miner;
+                        var tsfdiff = response[0].difficultyFormated;
+                        var tsfhashrate = response[0].hashrate;
+                        var tsfsupply = response[0].circulatingSupply;
+                        jQuery("#latest_block").html(tsfblock);
+                        // jQuery("#miner").html(tsfminer);
+                        // jQuery("#block_diff").html(tsfdiff + " T");
+                        jQuery("#hashrate").html(tsfhashrate + " GH");
+                        jQuery("#supply").html(tsfsupply + " TSF");
+                    },
+                    error: function (jqXHR, textStatus) {
+                        console.log(textStatus);
+                    }
+                });
+            }, 5000);
+            jQuery.ajax({
+                type: 'GET',
+                url: 'https://api.coingecko.com/api/v3/coins/teslafunds',
+                dataType: 'json',
+                success: function (response1) {
+                    console.log(response1);
+                    var market_cap_rank = response1.market_data.market_cap_rank;
+                    console.log(market_cap_rank);
+                    var total_volume = response1.market_data.total_volume.usd;
+                    console.log(total_volume);
+                    var current_price = response1.market_data.current_price.usd;
+                    console.log(current_price);
+                    var market_cap = response1.market_data.market_cap.usd;
+                    console.log(market_cap);
+                    var high_24h = response1.market_data.high_24h.usd;
+                    console.log(high_24h);
+                    var low_24h = response1.market_data.low_24h.usd;
+                    console.log(low_24h);
+                    var price_change_percentage_24h = response1.market_data.price_change_percentage_24h;
+                    console.log(price_change_percentage_24h);
+                    jQuery("#current_price").html("$ " + current_price);
+                    jQuery("#market_cap").html("$ " + market_cap);
+                    console.log(response1.tickers[0]);
+                    console.log(response1.tickers[0].base);
+                },
+                error: function (jqXHR, textStatus) {
+                    console.log(textStatus);
+                }
+            });
+            jQuery.ajax({
+                type: 'GET',
+                url: 'https://api.coingecko.com/api/v3/coins/teslafunds',
+                dataType: 'json',
+                success: function (response1) {
+                    console.log(response1);
+                    var market_cap_rank = response1.market_data.market_cap_rank;
+                    console.log(market_cap_rank);
+                    var total_volume = response1.market_data.total_volume.usd;
+                    console.log(total_volume);
+                    var current_price = response1.market_data.current_price.usd;
+                    console.log(current_price);
+                    var market_cap = response1.market_data.market_cap.usd;
+                    console.log(market_cap);
+                    var high_24h = response1.market_data.high_24h.usd;
+                    console.log(high_24h);
+                    var low_24h = response1.market_data.low_24h.usd;
+                    console.log(low_24h);
+                    var price_change_percentage_24h = response1.market_data.price_change_percentage_24h;
+                    console.log(price_change_percentage_24h);
+                    jQuery("#current_price1").html("$ " + current_price);
+                    jQuery("#market_cap1").html("$ " + market_cap);
+                    console.log(response1.tickers[0]);
+                    console.log(response1.tickers[0].base);
+                },
+                error: function (jqXHR, textStatus) {
+                    console.log(textStatus);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

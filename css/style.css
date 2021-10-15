@@ -1,0 +1,34 @@
+body {
+  background: black;
+  /* background-image: url(../img/background3.jpg); */
+}
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  background: #394de8;
+  padding: 1rem 0;
+  color: #fff;
+}
+.marquee:hover .marquee__item {
+  animation-play-state: paused;
+}
+.marquee__seperator {
+  margin: 0 2rem;
+  padding-right: 119px;
+}
+.marquee__item {
+  display: inline-block;
+  will-change: transform;
+  animation: marquee 25s linear infinite;
+  background-color: rgb(57, 77, 232);
+  color: #fff;
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
